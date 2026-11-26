@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- App data lives in src/lib/store.tsx (React context + localStorage) — lightweight demo with no backend, easy to explain.
