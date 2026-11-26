@@ -130,7 +130,39 @@ function RootComponent() {
         <div className="min-h-screen">
           <Header />
           <Outlet />
-          <footer className="border-t py-6 text-center text-xs text-muted-foreground">Credential Recognition, Legal & Financial Access System · Supporting SDG 4 (Quality Education) & SDG 8 (Decent Work)</footer>
+          <footer className="mt-12 border-t bg-card">
+            <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
+              <div>
+                <p className="font-serif text-base font-bold text-primary">Credential Recognition, Legal & Financial Access System</p>
+                <p className="mt-2 text-xs text-muted-foreground">One account to get your qualifications recognised, understand your rights and apply for funding.</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-primary">Services</p>
+                <ul className="mt-2 space-y-1 text-sm">
+                  <li><Link to="/apply" className="text-muted-foreground hover:text-foreground">Apply for recognition</Link></li>
+                  <li><Link to="/legal" className="text-muted-foreground hover:text-foreground">Legal information</Link></li>
+                  <li><Link to="/financial" className="text-muted-foreground hover:text-foreground">Financial assistance</Link></li>
+                </ul>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-primary">Requests</p>
+                <ul className="mt-2 space-y-1 text-sm">
+                  <li><Link to="/legal-request" className="text-muted-foreground hover:text-foreground">Request legal assistance</Link></li>
+                  <li><Link to="/financial-apply" className="text-muted-foreground hover:text-foreground">Apply for funding</Link></li>
+                  <li><Link to="/track" className="text-muted-foreground hover:text-foreground">Track my requests</Link></li>
+                </ul>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-primary">Account</p>
+                <ul className="mt-2 space-y-1 text-sm">
+                  <li><Link to="/register" className="text-muted-foreground hover:text-foreground">Register</Link></li>
+                  <li><Link to="/login" className="text-muted-foreground hover:text-foreground">Log in</Link></li>
+                  <li><Link to="/dashboard" className="text-muted-foreground hover:text-foreground">My applications</Link></li>
+                </ul>
+              </div>
+            </div>
+            <div className="border-t py-4 text-center text-xs text-muted-foreground">Credential Recognition, Legal & Financial Access System · Supporting SDG 4 (Quality Education) & SDG 8 (Decent Work)</div>
+          </footer>
         </div>
       </StoreProvider>
     </QueryClientProvider>
