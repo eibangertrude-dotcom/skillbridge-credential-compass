@@ -4,7 +4,7 @@ import { Card, Page, btnCls, inputCls } from "@/components/Layout";
 import { useStore } from "@/lib/store";
 
 export const Route = createFileRoute("/register")({
-  head: () => ({ meta: [{ title: "Register | Credential Recognition System" }, { name: "description", content: "Create an applicant account to apply for academic credential recognition." }, { property: "og:title", content: "Register | Credential Recognition System" }, { property: "og:description", content: "Create an applicant account to apply for academic credential recognition." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
+  head: () => ({ meta: [{ title: "Register | CR, Legal & Financial Access" }, { name: "description", content: "Create an applicant account to apply for academic credential recognition." }, { property: "og:title", content: "Register | CR, Legal & Financial Access" }, { property: "og:description", content: "Create an applicant account to apply for academic credential recognition." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Register,
 });
 

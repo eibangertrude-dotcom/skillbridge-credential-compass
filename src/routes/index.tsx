@@ -3,7 +3,7 @@ import { Card, btnCls, btnOutline } from "@/components/Layout";
 import { useStore } from "@/lib/store";
 
 export const Route = createFileRoute("/")({
-  head: () => ({ meta: [{ title: "Home | Credential Recognition System" }, { name: "description", content: "Get your academic qualifications recognised: apply online, upload certificates and track your verification." }, { property: "og:title", content: "Home | Credential Recognition System" }, { property: "og:description", content: "Get your academic qualifications recognised: apply online, upload certificates and track your verification." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
+  head: () => ({ meta: [{ title: "Home | CR, Legal & Financial Access" }, { name: "description", content: "Get your academic qualifications recognised: apply online, upload certificates and track your verification." }, { property: "og:title", content: "Home | CR, Legal & Financial Access" }, { property: "og:description", content: "Get your academic qualifications recognised: apply online, upload certificates and track your verification." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Home,
 });
 
@@ -20,8 +20,8 @@ function Home() {
       <section className="border-b bg-card">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
           <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">SDG 4 & 8 · Proving skills without paper records</p>
-          <h1 className="mt-3 max-w-3xl font-serif text-3xl font-bold text-primary md:text-5xl">Have your academic credentials recognised — fairly and transparently.</h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted-foreground">The Credential Recognition System lets applicants submit qualifications earned anywhere in the world, and lets our institution review, verify and decide on them in one place.</p>
+          <h1 className="mt-3 max-w-3xl font-serif text-3xl font-bold text-primary md:text-5xl">One platform for credential recognition, legal help and financial support.</h1>
+          <p className="mt-4 max-w-2xl text-lg text-muted-foreground">Get qualifications earned anywhere recognised, understand your rights, and access funding for bridging certifications — all with one account.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             {user ? (
               <Link to={user.role === "admin" ? "/admin" : "/dashboard"} className={btnCls}>Go to my dashboard</Link>
@@ -34,8 +34,23 @@ function Home() {
           </div>
         </div>
       </section>
+      <section className="mx-auto max-w-6xl px-4 pt-12">
+        <h2 className="font-serif text-2xl font-bold text-primary">Our services</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <Card>
+            <h3 className="font-serif text-xl font-bold text-primary">Credential Recognition</h3>
+            <p className="mt-2 text-sm text-muted-foreground">Submit your qualifications and documents, get them verified and track the decision.</p>
+            <div className="mt-4 flex flex-wrap gap-2"><Link to="/apply" className={btnCls}>Apply for recognition</Link><Link to="/dashboard" className={btnOutline}>Track applications</Link></div>
+          </Card>
+          <Card>
+            <h3 className="font-serif text-xl font-bold text-primary">Legal & Financial Access</h3>
+            <p className="mt-2 text-sm text-muted-foreground">Learn your rights, request free legal assistance, and apply for grants, bursaries and hardship support.</p>
+            <div className="mt-4 flex flex-wrap gap-2"><Link to="/legal" className={btnCls}>Legal information</Link><Link to="/financial" className={btnOutline}>Financial assistance</Link><Link to="/track" className={btnOutline}>Track requests</Link></div>
+          </Card>
+        </div>
+      </section>
       <section className="mx-auto max-w-6xl px-4 py-12">
-        <h2 className="font-serif text-2xl font-bold text-primary">How it works</h2>
+        <h2 className="font-serif text-2xl font-bold text-primary">How credential recognition works</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map(([t, d]) => <Card key={t}><h3 className="font-semibold text-primary">{t}</h3><p className="mt-2 text-sm text-muted-foreground">{d}</p></Card>)}
         </div>

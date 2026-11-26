@@ -3,12 +3,12 @@ import { Card, Page, RequireRole, StatCard, btnOutline } from "@/components/Layo
 import { countBy, useStore } from "@/lib/store";
 
 export const Route = createFileRoute("/reports")({
-  head: () => ({ meta: [{ title: "Reports | Credential Recognition System" }, { name: "description", content: "Summary of credential recognition applications by status." }, { property: "og:title", content: "Reports | Credential Recognition System" }, { property: "og:description", content: "Summary of credential recognition applications by status." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
+  head: () => ({ meta: [{ title: "Reports | CR, Legal & Financial Access" }, { name: "description", content: "Summary of credential recognition applications by status." }, { property: "og:title", content: "Reports | CR, Legal & Financial Access" }, { property: "og:description", content: "Summary of credential recognition applications by status." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: () => <RequireRole role="admin"><Reports /></RequireRole>,
 });
 
 function Reports() {
-  const { apps, reset } = useStore();
+  const { apps, requests, reset } = useStore();
   const c = countBy(apps);
   const bars = [
     { label: "Pending", value: c.pending, cls: "bg-status-pending" },
@@ -44,6 +44,13 @@ function Reports() {
           <h2 className="mb-4 font-semibold text-primary">Applications by country</h2>
           <ul className="divide-y text-sm">{byCountry.map(([k, v]) => <li key={k} className="flex justify-between py-2"><span>{k}</span><strong>{v}</strong></li>)}</ul>
         </Card>
+      </div>
+      <h2 className="mb-3 mt-8 font-serif text-xl font-bold text-primary">Legal & Financial Access</h2>
+      <div className="overflow-x-auto rounded-lg border bg-card">
+        <table className="w-full text-left text-sm">
+          <thead className="bg-secondary text-primary"><tr>{["Service", "Total", "Pending", "Under review", "Approved", "Rejected"].map(h => <th key={h} className="px-4 py-3">{h}</th>)}</tr></thead>
+          <tbody>{(["Legal", "Financial"] as const).map(t => { const k = countBy(requests.filter(r => r.type === t)); return <tr key={t} className="border-t"><td className="px-4 py-3 font-medium">{t}</td>{[k.total, k.pending, k.review, k.approved, k.rejected].map((v, i) => <td key={i} className="px-4 py-3">{v}</td>)}</tr>; })}</tbody>
+        </table>
       </div>
     </Page>
   );

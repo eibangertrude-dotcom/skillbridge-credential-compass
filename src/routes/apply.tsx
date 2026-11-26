@@ -4,7 +4,7 @@ import { Card, Page, RequireRole, btnCls, inputCls } from "@/components/Layout";
 import { readFile, useStore, type Doc } from "@/lib/store";
 
 export const Route = createFileRoute("/apply")({
-  head: () => ({ meta: [{ title: "New Application | Credential Recognition System" }, { name: "description", content: "Submit your qualification details and certificates for recognition." }, { property: "og:title", content: "New Application | Credential Recognition System" }, { property: "og:description", content: "Submit your qualification details and certificates for recognition." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
+  head: () => ({ meta: [{ title: "New Application | CR, Legal & Financial Access" }, { name: "description", content: "Submit your qualification details and certificates for recognition." }, { property: "og:title", content: "New Application | CR, Legal & Financial Access" }, { property: "og:description", content: "Submit your qualification details and certificates for recognition." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: () => <RequireRole role="applicant"><Apply /></RequireRole>,
 });
 

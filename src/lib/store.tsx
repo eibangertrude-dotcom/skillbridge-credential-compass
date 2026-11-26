@@ -11,9 +11,16 @@ export interface Application {
   institution: string; qualification: string; course: string; year: string; country: string;
   docs: Doc[]; status: Status; docsRequested: boolean; comments: Comment[]; submittedAt: string;
 }
-interface Data { users: User[]; apps: Application[]; currentUserId: string | null }
+export type ReqType = "Legal" | "Financial";
+/** Legal assistance request or financial assistance application (one shared table). */
+export interface AidRequest {
+  id: string; userId: string; type: ReqType; fullName: string; email: string; phone: string;
+  category: string; // legal issue type, or financial programme
+  description: string; amount?: number; docs: Doc[]; status: Status; comments: Comment[]; submittedAt: string;
+}
+interface Data { users: User[]; apps: Application[]; requests: AidRequest[]; currentUserId: string | null }
 
-const KEY = "crs-data-v1";
+const KEY = "crs-data-v2";
 const today = (d = 0) => new Date(Date.now() - d * 86400000).toISOString();
 
 const seed: Data = {
@@ -30,6 +37,12 @@ const seed: Data = {
     { id: "CRS-1004", userId: "u2", fullName: "Carlos Mendes", email: "carlos@demo.com", phone: "+55 11 9876 5432", address: "Rua Augusta 200, São Paulo", institution: "Instituto Federal", qualification: "Certificate", course: "Accounting", year: "2012", country: "Brazil", docs: [{ name: "certificate_scan.png", type: "image/png", size: 90000, kind: "Certificate" }], status: "Rejected", docsRequested: false, comments: [{ author: "Dr. Grace Mensah", text: "Institution could not be verified as accredited.", date: today(10) }], submittedAt: today(15) },
     { id: "CRS-1005", userId: "u2", fullName: "Fatima Noor", email: "fatima@example.com", phone: "+92 300 111 2222", address: "Karachi", institution: "University of Karachi", qualification: "Bachelor's Degree", course: "Nursing", year: "2018", country: "Pakistan", docs: [{ name: "transcript_nursing.pdf", type: "application/pdf", size: 410000, kind: "Transcript" }], status: "Pending", docsRequested: false, comments: [], submittedAt: today(0) },
   ],
+  requests: [
+    { id: "LGL-2001", userId: "u1", type: "Legal", fullName: "Amina Okafor", email: "applicant@demo.com", phone: "+234 801 234 5678", category: "Employment", description: "My employer has not paid my wages for two months.", docs: [{ name: "contract.pdf", type: "application/pdf", size: 120000, kind: "Additional" }], status: "Under Review", comments: [{ author: "Dr. Grace Mensah", text: "Assigned to a legal aid volunteer.", date: today(1) }], submittedAt: today(4) },
+    { id: "LGL-2002", userId: "u2", type: "Legal", fullName: "Carlos Mendes", email: "carlos@demo.com", phone: "+55 11 9876 5432", category: "Immigration / Residence", description: "Need help renewing my residence permit.", docs: [], status: "Pending", comments: [], submittedAt: today(0) },
+    { id: "FIN-3001", userId: "u1", type: "Financial", fullName: "Amina Okafor", email: "applicant@demo.com", phone: "+234 801 234 5678", category: "Bridging Certification Grant", description: "Funding for a bridging course to have my degree fully recognised.", amount: 800, docs: [{ name: "course_quote.pdf", type: "application/pdf", size: 90000, kind: "Additional" }], status: "Approved", comments: [{ author: "Dr. Grace Mensah", text: "Approved for the full amount.", date: today(3) }], submittedAt: today(12) },
+    { id: "FIN-3002", userId: "u2", type: "Financial", fullName: "Carlos Mendes", email: "carlos@demo.com", phone: "+55 11 9876 5432", category: "Emergency Hardship Fund", description: "Rent arrears after losing my job.", amount: 1500, docs: [], status: "Rejected", comments: [{ author: "Dr. Grace Mensah", text: "Amount exceeds the fund limit of 1,000.", date: today(5) }], submittedAt: today(9) },
+  ],
 };
 
 interface Store extends Data {
@@ -43,6 +56,9 @@ interface Store extends Data {
   update: (id: string, patch: Partial<Application>) => void;
   addComment: (id: string, text: string) => void;
   reset: () => void;
+  submitRequest: (r: Omit<AidRequest, "id" | "userId" | "status" | "comments" | "submittedAt">) => string;
+  updateRequest: (id: string, patch: Partial<AidRequest>) => void;
+  commentRequest: (id: string, text: string) => void;
 }
 const Ctx = createContext<Store | null>(null);
 
@@ -78,6 +94,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     submit: a => setData(d => ({ ...d, apps: [{ ...a, id: "CRS-" + (1001 + d.apps.length + Math.floor(Math.random() * 900)), userId: d.currentUserId!, status: "Pending", docsRequested: false, comments: [], submittedAt: new Date().toISOString() }, ...d.apps] })),
     update: (id, patch) => setData(d => ({ ...d, apps: d.apps.map(a => a.id === id ? { ...a, ...patch } : a) })),
     addComment: (id, text) => setData(d => ({ ...d, apps: d.apps.map(a => a.id === id ? { ...a, comments: [...a.comments, { author: user?.name ?? "System", text, date: new Date().toISOString() }] } : a) })),
+    submitRequest: r => {
+      const id = (r.type === "Legal" ? "LGL-" : "FIN-") + (4000 + Math.floor(Math.random() * 5000));
+      setData(d => ({ ...d, requests: [{ ...r, id, userId: d.currentUserId!, status: "Pending", comments: [], submittedAt: new Date().toISOString() }, ...d.requests] }));
+      return id;
+    },
+    updateRequest: (id, patch) => setData(d => ({ ...d, requests: d.requests.map(r => r.id === id ? { ...r, ...patch } : r) })),
+    commentRequest: (id, text) => setData(d => ({ ...d, requests: d.requests.map(r => r.id === id ? { ...r, comments: [...r.comments, { author: user?.name ?? "System", text, date: new Date().toISOString() }] } : r) })),
     reset: () => setData({ ...seed, currentUserId: data.currentUserId }),
   };
   return <Ctx.Provider value={store}>{children}</Ctx.Provider>;
@@ -90,7 +113,7 @@ export function useStore() {
 }
 
 export const fmtDate = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
-export const countBy = (apps: Application[]) => ({
+export const countBy = (apps: { status: Status }[]) => ({
   total: apps.length,
   pending: apps.filter(a => a.status === "Pending").length,
   review: apps.filter(a => a.status === "Under Review").length,

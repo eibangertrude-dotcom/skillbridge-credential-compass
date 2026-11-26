@@ -11,11 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AdminRequestsRouteImport } from './routes/admin-requests'
 import { Route as ApplyRouteImport } from './routes/apply'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as FinancialRouteImport } from './routes/financial'
+import { Route as FinancialApplyRouteImport } from './routes/financial-apply'
+import { Route as LegalRouteImport } from './routes/legal'
+import { Route as LegalRequestRouteImport } from './routes/legal-request'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as TrackRouteImport } from './routes/track'
 import { Route as ReviewIdRouteImport } from './routes/review.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -28,6 +34,11 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRequestsRoute = AdminRequestsRouteImport.update({
+  id: '/admin-requests',
+  path: '/admin-requests',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApplyRoute = ApplyRouteImport.update({
   id: '/apply',
   path: '/apply',
@@ -36,6 +47,26 @@ const ApplyRoute = ApplyRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinancialRoute = FinancialRouteImport.update({
+  id: '/financial',
+  path: '/financial',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinancialApplyRoute = FinancialApplyRouteImport.update({
+  id: '/financial-apply',
+  path: '/financial-apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalRoute = LegalRouteImport.update({
+  id: '/legal',
+  path: '/legal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalRequestRoute = LegalRequestRouteImport.update({
+  id: '/legal-request',
+  path: '/legal-request',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -53,6 +84,11 @@ const ReportsRoute = ReportsRouteImport.update({
   path: '/reports',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrackRoute = TrackRouteImport.update({
+  id: '/track',
+  path: '/track',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReviewIdRoute = ReviewIdRouteImport.update({
   id: '/review/$id',
   path: '/review/$id',
@@ -62,32 +98,50 @@ const ReviewIdRoute = ReviewIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/admin-requests': typeof AdminRequestsRoute
   '/apply': typeof ApplyRoute
   '/dashboard': typeof DashboardRoute
+  '/financial': typeof FinancialRoute
+  '/financial-apply': typeof FinancialApplyRoute
+  '/legal': typeof LegalRoute
+  '/legal-request': typeof LegalRequestRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/reports': typeof ReportsRoute
+  '/track': typeof TrackRoute
   '/review/$id': typeof ReviewIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/admin-requests': typeof AdminRequestsRoute
   '/apply': typeof ApplyRoute
   '/dashboard': typeof DashboardRoute
+  '/financial': typeof FinancialRoute
+  '/financial-apply': typeof FinancialApplyRoute
+  '/legal': typeof LegalRoute
+  '/legal-request': typeof LegalRequestRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/reports': typeof ReportsRoute
+  '/track': typeof TrackRoute
   '/review/$id': typeof ReviewIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/admin-requests': typeof AdminRequestsRoute
   '/apply': typeof ApplyRoute
   '/dashboard': typeof DashboardRoute
+  '/financial': typeof FinancialRoute
+  '/financial-apply': typeof FinancialApplyRoute
+  '/legal': typeof LegalRoute
+  '/legal-request': typeof LegalRequestRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/reports': typeof ReportsRoute
+  '/track': typeof TrackRoute
   '/review/$id': typeof ReviewIdRoute
 }
 export interface FileRouteTypes {
@@ -95,42 +149,66 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/admin-requests'
     | '/apply'
     | '/dashboard'
+    | '/financial'
+    | '/financial-apply'
+    | '/legal'
+    | '/legal-request'
     | '/login'
     | '/register'
     | '/reports'
+    | '/track'
     | '/review/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
+    | '/admin-requests'
     | '/apply'
     | '/dashboard'
+    | '/financial'
+    | '/financial-apply'
+    | '/legal'
+    | '/legal-request'
     | '/login'
     | '/register'
     | '/reports'
+    | '/track'
     | '/review/$id'
   id:
     | '__root__'
     | '/'
     | '/admin'
+    | '/admin-requests'
     | '/apply'
     | '/dashboard'
+    | '/financial'
+    | '/financial-apply'
+    | '/legal'
+    | '/legal-request'
     | '/login'
     | '/register'
     | '/reports'
+    | '/track'
     | '/review/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  AdminRequestsRoute: typeof AdminRequestsRoute
   ApplyRoute: typeof ApplyRoute
   DashboardRoute: typeof DashboardRoute
+  FinancialRoute: typeof FinancialRoute
+  FinancialApplyRoute: typeof FinancialApplyRoute
+  LegalRoute: typeof LegalRoute
+  LegalRequestRoute: typeof LegalRequestRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   ReportsRoute: typeof ReportsRoute
+  TrackRoute: typeof TrackRoute
   ReviewIdRoute: typeof ReviewIdRoute
 }
 
@@ -150,6 +228,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin-requests': {
+      id: '/admin-requests'
+      path: '/admin-requests'
+      fullPath: '/admin-requests'
+      preLoaderRoute: typeof AdminRequestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/apply': {
       id: '/apply'
       path: '/apply'
@@ -162,6 +247,34 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/financial': {
+      id: '/financial'
+      path: '/financial'
+      fullPath: '/financial'
+      preLoaderRoute: typeof FinancialRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/financial-apply': {
+      id: '/financial-apply'
+      path: '/financial-apply'
+      fullPath: '/financial-apply'
+      preLoaderRoute: typeof FinancialApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal': {
+      id: '/legal'
+      path: '/legal'
+      fullPath: '/legal'
+      preLoaderRoute: typeof LegalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal-request': {
+      id: '/legal-request'
+      path: '/legal-request'
+      fullPath: '/legal-request'
+      preLoaderRoute: typeof LegalRequestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -185,6 +298,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/track': {
+      id: '/track'
+      path: '/track'
+      fullPath: '/track'
+      preLoaderRoute: typeof TrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/review/$id': {
       id: '/review/$id'
       path: '/review/$id'
@@ -198,11 +318,17 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  AdminRequestsRoute: AdminRequestsRoute,
   ApplyRoute: ApplyRoute,
   DashboardRoute: DashboardRoute,
+  FinancialRoute: FinancialRoute,
+  FinancialApplyRoute: FinancialApplyRoute,
+  LegalRoute: LegalRoute,
+  LegalRequestRoute: LegalRequestRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   ReportsRoute: ReportsRoute,
+  TrackRoute: TrackRoute,
   ReviewIdRoute: ReviewIdRoute,
 }
 export const routeTree = rootRouteImport

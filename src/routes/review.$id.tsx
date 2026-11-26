@@ -4,7 +4,7 @@ import { Card, Page, RequireRole, StatusBadge, btnCls, btnOutline, inputCls } fr
 import { fmtDate, useStore, type Doc, type Status } from "@/lib/store";
 
 export const Route = createFileRoute("/review/$id")({
-  head: () => ({ meta: [{ title: "Review Application | Credential Recognition System" }, { name: "description", content: "Examine documents and decide on a credential recognition application." }, { property: "og:title", content: "Review Application | Credential Recognition System" }, { property: "og:description", content: "Examine documents and decide on a credential recognition application." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
+  head: () => ({ meta: [{ title: "Review Application | CR, Legal & Financial Access" }, { name: "description", content: "Examine documents and decide on a credential recognition application." }, { property: "og:title", content: "Review Application | CR, Legal & Financial Access" }, { property: "og:description", content: "Examine documents and decide on a credential recognition application." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: () => <RequireRole role="admin"><Review /></RequireRole>,
 });
 

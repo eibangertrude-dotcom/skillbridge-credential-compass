@@ -8,13 +8,15 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const links = [
     { to: "/", label: "Home" },
-    ...(user?.role === "applicant" ? [{ to: "/dashboard", label: "My Applications" }, { to: "/apply", label: "New Application" }] : []),
-    ...(user?.role === "admin" ? [{ to: "/admin", label: "Applications" }, { to: "/reports", label: "Reports" }] : []),
+    { to: "/legal", label: "Legal Info" },
+    { to: "/financial", label: "Financial Aid" },
+    ...(user?.role === "applicant" ? [{ to: "/dashboard", label: "My Applications" }, { to: "/apply", label: "New Application" }, { to: "/track", label: "My Requests" }] : []),
+    ...(user?.role === "admin" ? [{ to: "/admin", label: "Credentials" }, { to: "/admin-requests", label: "Legal & Financial" }, { to: "/reports", label: "Reports" }] : []),
   ] as const;
   return (
     <header className="bg-primary text-primary-foreground">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-        <Link to="/" className="font-serif text-lg font-bold">Credential Recognition System</Link>
+        <Link to="/" className="font-serif text-base font-bold leading-tight md:text-lg">Credential Recognition, Legal & Financial Access System</Link>
         <button className="md:hidden rounded border border-primary-foreground/40 px-2 py-1 text-sm" onClick={() => setOpen(!open)}>Menu</button>
         <nav className={`${open ? "flex" : "hidden"} absolute left-0 right-0 top-14 z-10 flex-col gap-1 bg-primary p-4 md:static md:flex md:flex-row md:items-center md:gap-5 md:p-0`}>
           {links.map(l => <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="text-sm opacity-90 hover:opacity-100" activeProps={{ className: "font-semibold underline underline-offset-4" }} activeOptions={{ exact: true }}>{l.label}</Link>)}

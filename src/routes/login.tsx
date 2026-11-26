@@ -4,7 +4,7 @@ import { Card, Page, btnCls, btnOutline, inputCls } from "@/components/Layout";
 import { useStore, type Role } from "@/lib/store";
 
 export const Route = createFileRoute("/login")({
-  head: () => ({ meta: [{ title: "Log in | Credential Recognition System" }, { name: "description", content: "Log in to submit or review credential recognition applications." }, { property: "og:title", content: "Log in | Credential Recognition System" }, { property: "og:description", content: "Log in to submit or review credential recognition applications." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
+  head: () => ({ meta: [{ title: "Log in | CR, Legal & Financial Access" }, { name: "description", content: "Log in to submit or review credential recognition applications." }, { property: "og:title", content: "Log in | CR, Legal & Financial Access" }, { property: "og:description", content: "Log in to submit or review credential recognition applications." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: Login,
 });
 

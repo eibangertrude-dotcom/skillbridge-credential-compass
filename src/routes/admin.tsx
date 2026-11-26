@@ -4,7 +4,7 @@ import { Card, Page, RequireRole, StatusBadge, inputCls } from "@/components/Lay
 import { fmtDate, useStore, type Status } from "@/lib/store";
 
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "Applications | Credential Recognition System" }, { name: "description", content: "Administrator view of all credential recognition applications." }, { property: "og:title", content: "Applications | Credential Recognition System" }, { property: "og:description", content: "Administrator view of all credential recognition applications." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
+  head: () => ({ meta: [{ title: "Applications | CR, Legal & Financial Access" }, { name: "description", content: "Administrator view of all credential recognition applications." }, { property: "og:title", content: "Applications | CR, Legal & Financial Access" }, { property: "og:description", content: "Administrator view of all credential recognition applications." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: () => <RequireRole role="admin"><Admin /></RequireRole>,
 });
 

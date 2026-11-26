@@ -4,7 +4,7 @@ import { Card, Page, RequireRole, StatCard, StatusBadge, btnCls, btnOutline } fr
 import { countBy, fmtDate, readFile, useStore, type Application, type Status } from "@/lib/store";
 
 export const Route = createFileRoute("/dashboard")({
-  head: () => ({ meta: [{ title: "My Applications | Credential Recognition System" }, { name: "description", content: "Track the progress of your credential recognition applications." }, { property: "og:title", content: "My Applications | Credential Recognition System" }, { property: "og:description", content: "Track the progress of your credential recognition applications." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
+  head: () => ({ meta: [{ title: "My Applications | CR, Legal & Financial Access" }, { name: "description", content: "Track the progress of your credential recognition applications." }, { property: "og:title", content: "My Applications | CR, Legal & Financial Access" }, { property: "og:description", content: "Track the progress of your credential recognition applications." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
   component: () => <RequireRole role="applicant"><Dashboard /></RequireRole>,
 });
 
